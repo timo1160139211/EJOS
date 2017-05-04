@@ -18,7 +18,7 @@
                 <h:commandButton id="login" value="Login" action="#{login.login}" rendered="#{!login.loggedIn}"/>
                 <h:commandButton id="logout" value="Logout" action="#{login.logout}" rendered="#{login.loggedIn}"/>
             </h:form>
-            <h:link outcome="/users.xhtml">View users</h:link>
+            <h:link outcome="/index.xhtml">View users</h:link>
         </ui:define>
     </ui:composition>
 </html>
