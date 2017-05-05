@@ -1,0 +1,90 @@
+[INFO] Scanning for projects...
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building EJOS 1.0.0-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-clean-plugin:2.5:clean (default-clean) @ EJOS ---
+[INFO] Deleting /home/morpheus/github-gaoyisheng/EJOS/target
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ EJOS ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Copying 1 resource
+[INFO] 
+[INFO] --- maven-compiler-plugin:2.3.2:compile (default-compile) @ EJOS ---
+[INFO] Compiling 13 source files to /home/morpheus/github-gaoyisheng/EJOS/target/classes
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:testResources (default-testResources) @ EJOS ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /home/morpheus/github-gaoyisheng/EJOS/src/test/resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:2.3.2:testCompile (default-testCompile) @ EJOS ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- maven-surefire-plugin:2.12.4:test (default-test) @ EJOS ---
+[INFO] No tests to run.
+[INFO] 
+[INFO] --- maven-war-plugin:2.2:war (default-war) @ EJOS ---
+[INFO] Packaging webapp
+[INFO] Assembling webapp [EJOS] in [/home/morpheus/github-gaoyisheng/EJOS/target/EJOS]
+[INFO] Processing war project
+[INFO] Copying webapp resources [/home/morpheus/github-gaoyisheng/EJOS/src/main/webapp]
+[INFO] Webapp assembled in [44 msecs]
+[INFO] Building war: /home/morpheus/github-gaoyisheng/EJOS/target/EJOS.war
+[INFO] 
+[INFO] >>> wildfly-maven-plugin:1.1.0.Alpha5:deploy (default-cli) > package @ EJOS >>>
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ EJOS ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Copying 1 resource
+[INFO] 
+[INFO] --- maven-compiler-plugin:2.3.2:compile (default-compile) @ EJOS ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:testResources (default-testResources) @ EJOS ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /home/morpheus/github-gaoyisheng/EJOS/src/test/resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:2.3.2:testCompile (default-testCompile) @ EJOS ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- maven-surefire-plugin:2.12.4:test (default-test) @ EJOS ---
+[INFO] No tests to run.
+[INFO] Skipping execution of surefire because it has already been run for this configuration
+[INFO] 
+[INFO] --- maven-war-plugin:2.2:war (default-war) @ EJOS ---
+[INFO] Packaging webapp
+[INFO] Assembling webapp [EJOS] in [/home/morpheus/github-gaoyisheng/EJOS/target/EJOS]
+[INFO] Processing war project
+[INFO] Copying webapp resources [/home/morpheus/github-gaoyisheng/EJOS/src/main/webapp]
+[INFO] Webapp assembled in [15 msecs]
+[INFO] Building war: /home/morpheus/github-gaoyisheng/EJOS/target/EJOS.war
+[INFO] 
+[INFO] <<< wildfly-maven-plugin:1.1.0.Alpha5:deploy (default-cli) < package @ EJOS <<<
+[INFO] 
+[INFO] --- wildfly-maven-plugin:1.1.0.Alpha5:deploy (default-cli) @ EJOS ---
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 22.499 s
+[INFO] Finished at: 2017-05-05T21:00:02+08:00
+[INFO] Final Memory: 22M/193M
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.wildfly.plugins:wildfly-maven-plugin:1.1.0.Alpha5:deploy (default-cli) on project EJOS: Deployment failed: Operation failed: {
+[ERROR] "WFLYCTL0080: Failed services" => {"jboss.deployment.unit.\"EJOS.war\".WeldStartService" => "org.jboss.msc.service.StartException in service jboss.deployment.unit.\"EJOS.war\".WeldStartService: Failed to start service
+[ERROR] Caused by: org.jboss.weld.exceptions.DeploymentException: WELD-001408: Unsatisfied dependencies for type Logger with qualifiers @Default
+[ERROR] at injection point [BackedAnnotatedField] @Inject cn.edu.sdut.softlab.service.AbstractFacade.log
+[ERROR] at cn.edu.sdut.softlab.service.AbstractFacade.log(AbstractFacade.java:0)
+[ERROR] WELD-001475: The following beans match by type, but none have matching qualifiers:
+[ERROR] - Producer Method [Logger] with qualifiers [@BatchProperty @Any] declared as [[UnbackedAnnotatedMethod] @Produces @BatchProperty public org.jberet.creation.BatchBeanProducer.getLogger(InjectionPoint)]
+[ERROR] "},
+[ERROR] "WFLYCTL0412: Required services that are not installed:" => ["jboss.deployment.unit.\"EJOS.war\".WeldStartService"],
+[ERROR] "WFLYCTL0180: Services with missing/unavailable dependencies" => undefined
+[ERROR] }
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoExecutionException
