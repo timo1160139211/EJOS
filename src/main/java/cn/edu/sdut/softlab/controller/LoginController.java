@@ -36,8 +36,8 @@ public class LoginController implements Serializable  {
 	
 	private static final long serialVersionUID = 7965455427888195913L;
 
-	@Inject
-	private Credentials credentials;
+//	@Inject
+//	private Credentials credentials;
 
 	@Inject
 	UserFacade userService;
@@ -45,18 +45,18 @@ public class LoginController implements Serializable  {
 	@Inject
 	FacesContext facesContext;
 
-	private Student currentUser = null;
+	private Teacher currentUser = null;
 
 	/**
 	 * 处理登录逻辑.
 	 */
-	public void login() {
-		Student stuff = userService.findByUsernameAndPassword(credentials.getUsername(), credentials.getPassword());
+/*	public void login() {
+		Teacher stuff = userService.findByUsernameAndPassword(credentials.getUsername(), credentials.getPassword());
 		if (stuff != null) {
 			currentUser = stuff;
 			facesContext.addMessage(null, new FacesMessage("Welcome, " + currentUser.getName()));
 		}
-	}
+	}*/
 
 	/**
 	 * 处理退出登录逻辑.
@@ -77,7 +77,7 @@ public class LoginController implements Serializable  {
 
 	@Produces
 	@LoggedIn
-	public Student getCurrentUser() {
+	public Teacher getCurrentUser() {
 		return currentUser;
 	}
 

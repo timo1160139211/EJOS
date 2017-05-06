@@ -17,7 +17,6 @@
 package cn.edu.sdut.softlab.controller;
 
 import javax.enterprise.context.RequestScoped;
-import javax.enterprise.inject.Default;
 import javax.inject.Named;
 /**
  * @author GaoYisheng 
@@ -28,15 +27,15 @@ import javax.inject.Named;
 @Named
 public class Credentials {
 
-	private String username;
+	private String name;
 	private String password;
 /*	private String identity;*/
 	
-	public String getUsername() {
-		return username;
+	public String getName() {
+		return name;
 	}
-	public void setUsername(String username) {
-		this.username = username;
+	public void setName(String username) {
+		this.name = username;
 	}
 	public String getPassword() {
 		return password;

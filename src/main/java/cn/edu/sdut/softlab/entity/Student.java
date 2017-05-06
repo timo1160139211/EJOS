@@ -12,7 +12,9 @@ import java.util.Set;
  */
 @Entity
 @Table(name="student")
-@NamedQuery(name="Student.findAll", query="SELECT s FROM Student s")
+@NamedQueries({
+	  @NamedQuery(name = "Student.findAll", query = "SELECT s FROM Student s"),
+	  @NamedQuery(name = "Student.findById", query = "SELECT s FROM Student s WHERE s.id = :id")})
 public class Student implements Serializable {
 	private static final long serialVersionUID = 1L;
 

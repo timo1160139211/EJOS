@@ -31,19 +31,19 @@ import cn.edu.sdut.softlab.entity.*;
  */
 @Stateless
 @Named("user")
-public class UserFacade extends AbstractFacade<Student> {
+public class UserFacade extends AbstractFacade<Teacher> {
 
 	public UserFacade() {
-		super(Student.class);
+		super(Teacher.class);
 	}
 
 	/**
 	 * 同findByUsernameAndPassword()理
 	 */
-	public Student findByName(String username) {
+	public Teacher findByName(String name) {
 		Map<String, Object> parameters = new HashMap<>(0);
-		parameters.put("username", username);
-		return findSingleByNamedQuery("Student.findByUsername", parameters, Student.class).get();
+		parameters.put("name", name);
+		return findSingleByNamedQuery("Teacher.findByUsername", parameters, Teacher.class).get();
 	}
 	
 	/**
@@ -63,10 +63,10 @@ public class UserFacade extends AbstractFacade<Student> {
 	}*/
 	
 
-	public Student findByUsernameAndPassword(String username, String password) {
+/*	public Teacher findByUsernameAndPassword(String username, String password) {
 		Map<String, Object> parameters = new HashMap<>(0);
 		parameters.put("username", username);
 		parameters.put("password", password);
-		return findSingleByNamedQuery("Student.findByUsernameAndPassword", parameters, Student.class).get();
-	}
+		return findSingleByNamedQuery("Teacher.findByUsernameAndPassword", parameters, Teacher.class).get();
+	}*/
 }

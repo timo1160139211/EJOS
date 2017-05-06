@@ -11,7 +11,7 @@
             <h:form id="loginForm">
                 <h:panelGrid columns="2" rendered="#{!login.loggedIn}">
                     <h:outputLabel for="username">Username:</h:outputLabel>
-                    <h:inputText id="username" value="#{credentials.username}"/>
+                    <h:inputText id="username" value="#{credentials.name}"/>
                     <h:outputLabel for="password">Password:</h:outputLabel>
                     <h:inputSecret id="password" value="#{credentials.password}"/>
                 </h:panelGrid>
