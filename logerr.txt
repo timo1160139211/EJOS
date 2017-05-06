@@ -240,3 +240,108 @@ Caused by: org.wildfly.plugin.common.DeploymentExecutionException: Deployment fa
 [ERROR] 
 [ERROR] For more information about the errors and possible solutions, please read the following articles:
 [ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoExecutionException
+
+
+*************************************************************************************
+--2017/5/6--
+solving:./standalone.sh -c standalone-full.xml 
+
+*************************************************************************************
+
+
+
+
+
+
+
+
+
+
+
+
+--2017/5/6--
+
+
+21:17:00,256 ERROR [org.jboss.as.controller.management-operation] (management-handler-thread - 3) WFLYCTL0013: Operation ("deploy") failed - address: ([("deployment" => "EJOS.war")]) - failure description: {
+    "WFLYCTL0412: Required services that are not installed:" => ["jboss.naming.context.java.jboss.datasources.mysqlDS"],
+    "WFLYCTL0180: Services with missing/unavailable dependencies" => [
+        "jboss.persistenceunit.\"EJOS.war#ejosUnit\".__FIRST_PHASE__ is missing [jboss.naming.context.java.jboss.datasources.mysqlDS]",
+        "jboss.persistenceunit.\"EJOS.war#ejosUnit\" is missing [jboss.naming.context.java.jboss.datasources.mysqlDS]"
+    ]
+}
+21:17:00,258 ERROR [org.jboss.as.server] (management-handler-thread - 3) WFLYSRV0021: Deploy of deployment "EJOS.war" was rolled back with the following failure message: 
+{
+    "WFLYCTL0412: Required services that are not installed:" => ["jboss.naming.context.java.jboss.datasources.mysqlDS"],
+    "WFLYCTL0180: Services with missing/unavailable dependencies" => [
+        "jboss.persistenceunit.\"EJOS.war#ejosUnit\".__FIRST_PHASE__ is missing [jboss.naming.context.java.jboss.datasources.mysqlDS]",
+        "jboss.persistenceunit.\"EJOS.war#ejosUnit\" is missing [jboss.naming.context.java.jboss.datasources.mysqlDS]"
+    ]
+}
+
+
+
+
+*************************************************************************************
+solving::   module.xml:: <module name="javax.servlet.api" optional="true"/>
+
+*************************************************************************************
+
+
+
+
+
+
+
+
+
+
+21:49:09,667 ERROR [org.jboss.msc.service.fail] (MSC service thread 1-1) MSC000001: Failed to start service jboss.deployment.unit."EJOS.war".WeldStartService: org.jboss.msc.service.StartException in service jboss.deployment.unit."EJOS.war".WeldStartService: Failed to start service
+	at org.jboss.msc.service.ServiceControllerImpl$StartTask.run(ServiceControllerImpl.java:1904)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: org.jboss.weld.exceptions.DeploymentException: WELD-001408: Unsatisfied dependencies for type Logger with qualifiers @Default
+  at injection point [BackedAnnotatedField] @Inject cn.edu.sdut.softlab.service.AbstractFacade.log
+  at cn.edu.sdut.softlab.service.AbstractFacade.log(AbstractFacade.java:0)
+WELD-001475: The following beans match by type, but none have matching qualifiers:
+  - Producer Method [Logger] with qualifiers [@BatchProperty @Any] declared as [[UnbackedAnnotatedMethod] @Produces @BatchProperty public org.jberet.creation.BatchBeanProducer.getLogger(InjectionPoint)]
+
+	at org.jboss.weld.bootstrap.Validator.validateInjectionPointForDeploymentProblems(Validator.java:359)
+	at org.jboss.weld.bootstrap.Validator.validateInjectionPoint(Validator.java:281)
+	at org.jboss.weld.bootstrap.Validator.validateGeneralBean(Validator.java:134)
+	at org.jboss.weld.bootstrap.Validator.validateRIBean(Validator.java:155)
+	at org.jboss.weld.bootstrap.Validator.validateBean(Validator.java:518)
+	at org.jboss.weld.bootstrap.ConcurrentValidator$1.doWork(ConcurrentValidator.java:68)
+	at org.jboss.weld.bootstrap.ConcurrentValidator$1.doWork(ConcurrentValidator.java:66)
+	at org.jboss.weld.executor.IterativeWorkerTaskFactory$1.call(IterativeWorkerTaskFactory.java:63)
+	at org.jboss.weld.executor.IterativeWorkerTaskFactory$1.call(IterativeWorkerTaskFactory.java:56)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+	at org.jboss.threads.JBossThread.run(JBossThread.java:320)
+
+21:49:09,675 ERROR [org.jboss.as.controller.management-operation] (management-handler-thread - 3) WFLYCTL0013: Operation ("deploy") failed - address: ([("deployment" => "EJOS.war")]) - failure description: {
+    "WFLYCTL0080: Failed services" => {"jboss.deployment.unit.\"EJOS.war\".WeldStartService" => "org.jboss.msc.service.StartException in service jboss.deployment.unit.\"EJOS.war\".WeldStartService: Failed to start service
+    Caused by: org.jboss.weld.exceptions.DeploymentException: WELD-001408: Unsatisfied dependencies for type Logger with qualifiers @Default
+  at injection point [BackedAnnotatedField] @Inject cn.edu.sdut.softlab.service.AbstractFacade.log
+  at cn.edu.sdut.softlab.service.AbstractFacade.log(AbstractFacade.java:0)
+WELD-001475: The following beans match by type, but none have matching qualifiers:
+  - Producer Method [Logger] with qualifiers [@BatchProperty @Any] declared as [[UnbackedAnnotatedMethod] @Produces @BatchProperty public org.jberet.creation.BatchBeanProducer.getLogger(InjectionPoint)]
+"},
+    "WFLYCTL0412: Required services that are not installed:" => ["jboss.deployment.unit.\"EJOS.war\".WeldStartService"],
+    "WFLYCTL0180: Services with missing/unavailable dependencies" => undefined
+}
+21:49:09,679 ERROR [org.jboss.as.server] (management-handler-thread - 3) WFLYSRV0021: Deploy of deployment "EJOS.war" was rolled back with the following failure message: 
+{
+    "WFLYCTL0080: Failed services" => {"jboss.deployment.unit.\"EJOS.war\".WeldStartService" => "org.jboss.msc.service.StartException in service jboss.deployment.unit.\"EJOS.war\".WeldStartService: Failed to start service
+    Caused by: org.jboss.weld.exceptions.DeploymentException: WELD-001408: Unsatisfied dependencies for type Logger with qualifiers @Default
+  at injection point [BackedAnnotatedField] @Inject cn.edu.sdut.softlab.service.AbstractFacade.log
+  at cn.edu.sdut.softlab.service.AbstractFacade.log(AbstractFacade.java:0)
+WELD-001475: The following beans match by type, but none have matching qualifiers:
+  - Producer Method [Logger] with qualifiers [@BatchProperty @Any] declared as [[UnbackedAnnotatedMethod] @Produces @BatchProperty public org.jberet.creation.BatchBeanProducer.getLogger(InjectionPoint)]
+"},
+    "WFLYCTL0412: Required services that are not installed:" => ["jboss.deployment.unit.\"EJOS.war\".WeldStartService"],
+    "WFLYCTL0180: Services with missing/unavailable dependencies" => undefined
+}
+
