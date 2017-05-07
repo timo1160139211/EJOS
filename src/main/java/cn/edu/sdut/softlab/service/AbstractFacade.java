@@ -23,7 +23,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.inject.Inject;
+
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
@@ -38,10 +38,11 @@ import javax.persistence.criteria.Root;
  */
 public abstract class AbstractFacade<T> {
 
-	@Inject
+//	@Inject
 	EntityManager em;
 
-	@Inject
+//	@Inject @Any
+
 	Logger log;
 
 	private final Class<T> entityClass;

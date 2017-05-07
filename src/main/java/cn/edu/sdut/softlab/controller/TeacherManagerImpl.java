@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.enterprise.inject.Any;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -36,7 +37,7 @@ import cn.edu.sdut.softlab.service.UserFacade;
 public class TeacherManagerImpl extends AbstractManager<Teacher> implements TeacherManager{
 
 
-	@Inject
+	@Inject @Any
 	private transient Logger logger;
 	@Inject
 	UserFacade userService;
