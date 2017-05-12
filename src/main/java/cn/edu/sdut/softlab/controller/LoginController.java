@@ -26,12 +26,15 @@ import javax.enterprise.inject.Produces;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
+import javax.inject.Named;
 
 /**
  * @author GaoYisheng 
  * 2017年5月5日
  * 用户登录的控制类
  */
+/*@SessionScoped*/
+@Named("login")
 public class LoginController implements Serializable  {
 	
 	private static final long serialVersionUID = 7965455427888195913L;
