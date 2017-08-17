@@ -39,6 +39,9 @@ public class ExpReport implements Serializable {
 	@Inject
 	FacesContext facesContext;
 
+	@Inject
+	LoginController loginController;
+	
 	private String className;// 文件名
 	private String result;// 返回值
 	private String filePath;// 文件保存的路径
@@ -48,11 +51,14 @@ public class ExpReport implements Serializable {
 	public void init(){
 		this.answerText = "Please coding here ...";
 		this.filePath = "/home/morpheus/ejosData/userid/questionid/";
+		
+		Student s = (Student) loginController.getCurrentUser();
+		this.currentUser = s;
 	}
 
-	@Inject
-	@LoggedIn
-	private Student currentUser;// 当前用户
+//	@Inject
+//	@LoggedIn
+	private Student currentUser;// = (Student) loginController.getCurrentUser();// 当前用户
 
 	public Student getCurrentUser() {
 		return currentUser;

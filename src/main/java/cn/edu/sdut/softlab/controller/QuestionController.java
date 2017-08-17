@@ -3,13 +3,13 @@ package cn.edu.sdut.softlab.controller;
 import cn.edu.sdut.softlab.entity.Question;
 import cn.edu.sdut.softlab.entity.Student;
 import cn.edu.sdut.softlab.entity.Team;
-import cn.edu.sdut.softlab.qualifiers.LoggedIn;
 import cn.edu.sdut.softlab.service.QuestionFacade;
 import cn.edu.sdut.softlab.service.TeamFacade;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
@@ -18,6 +18,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.servlet.http.HttpSession;
 import javax.transaction.UserTransaction;
 
 /**
@@ -25,144 +26,152 @@ import javax.transaction.UserTransaction;
  */
 @RequestScoped
 @Named("questionController")
-public class QuestionController  {
+public class QuestionController {
 
-    @Inject
-    private Logger logger;
+	@Inject
+	private Logger logger;
 
-    @Inject
-    private UserTransaction utx;
+	@Inject
+	private UserTransaction utx;
 
-    @Inject
-    EntityManager em;
+	@Inject
+	EntityManager em;
 
-    @Inject
-    FacesContext facesContext;
+	@Inject
+	FacesContext facesContext;
 
-    @Inject
-    NewsController newsController;
+	@Inject
+	NewsController newsController;
+	
+	@Inject
+	LoginController loginController;
+	
+	@Inject
+	TeamFacade teamService;
 
-    @Inject
-    TeamFacade teamService;
+	@Inject
+	QuestionFacade questionService;
 
-    @Inject
-    QuestionFacade questionService;
+	private Student currentStu ;//= (Student) loginController.getCurrentUser();
 
-    @Inject
-    @LoggedIn
-    private Student currentUser;// 当前用户
+	@PostConstruct
+	public void init(){
+		Student s = (Student) loginController.getCurrentUser();
+		this.currentStu = s ;
+	}
+	
+	public void setCurrentStu(Student s) {
+		this.currentStu = s;
+	}
 
-    public Student getCurrentUser() {
-      return currentUser;
-    }
+	public Student getCurrentStu() {
+		return currentStu;
+	}
 
-    public void setCurrentUser(Student currentUser) {
-      this.currentUser = currentUser;
-    }
+	private String delectName;
 
-    private String delectName;
+	public String getDelectName() {
+		return delectName;
+	}
 
-    public String getDelectName() {
-        return delectName;
-    }
+	public void setDelectName(String delectName) {
+		this.delectName = delectName;
+	}
 
-    public void setDelectName(String delectName) {
-        this.delectName = delectName;
-    }
+	private Question currentquestion = new Question(new Team(1));
 
-    private Question currentquestion = new Question(new Team(1));
+	public Question getCurrentquestion() {
+		return currentquestion;
+	}
 
-    public Question getCurrentquestion() {
-        return currentquestion;
-    }
+	public void setCurrentquestion(Question currentquestion) {
+		this.currentquestion = currentquestion;
+	}
 
-    public void setCurrentquestion(Question currentquestion) {
-        this.currentquestion = currentquestion;
-    }
+	private List<Question> filteredQuestions;
 
-    private List<Question> filteredQuestions;
+	public List<Question> getFilteredQuestions() {
+		return filteredQuestions;
+	}
 
-    public List<Question> getFilteredQuestions() {
-        return filteredQuestions;
-    }
+	public void setFilteredQuestions(List<Question> filteredQuestions) {
+		this.filteredQuestions = filteredQuestions;
+	}
 
-    public void setFilteredQuestions(List<Question> filteredQuestions) {
-        this.filteredQuestions = filteredQuestions;
-    }
+	public List<Question> findAll() throws Exception {
+		try {
+			utx.begin();
+			CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
+			cq.select(cq.from(Question.class));
+			return em.createQuery(cq).getResultList();
+		} finally {
+			utx.commit();
+		}
+	}
 
-    public List<Question> findAll() throws Exception{
-        try {
-            utx.begin();
-            CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            cq.select(cq.from(Question.class));
-            return em.createQuery(cq).getResultList();
-        } finally{
-            utx.commit();
-        }
-    }
+	public List<Question> findItemBanksByTeam() {
+		return null;
+	}
 
-    public List<Question> findItemBanksByTeam(){
-        return null;
-    }
+	public void addQuestion() throws Exception {
+		try {
+			utx.begin();
+			logger.info(currentquestion.toString());
+			questionService.create(currentquestion);
+			facesContext.addMessage(null, new FacesMessage("题目添加成功!"));
+			logger.log(Level.INFO, "Quesstion Add Called:{0}", currentquestion.toString());
+		} finally {
+			utx.commit();
+			// newsController.addNewsBynewQuestion(currentquestion);
+			// currentquestion = null;
+		}
+	}
 
-    public void addQuestion() throws Exception{
-        try{
-            utx.begin();
-            logger.info(currentquestion.toString());
-            questionService.create(currentquestion);
-            facesContext.addMessage(null, new FacesMessage("题目添加成功!"));
-            logger.log(Level.INFO, "Quesstion Add Called:{0}", currentquestion.toString());
-        }finally{
-            utx.commit();
-            //newsController.addNewsBynewQuestion(currentquestion);
-            //currentquestion = null;
-        }
-    }
+	public void deleteQuestion() throws Exception {
+		try {
+			utx.begin();
+			Question delectQues = questionService.findQuestionsByName(delectName);
+			logger.info(delectQues.toString());
+			questionService.remove(delectQues);
+			facesContext.addMessage(null, new FacesMessage("题目删除成功!"));
+			logger.log(Level.INFO, "Quesstion Add Called:{0}", currentquestion.toString());
+		} finally {
+			utx.commit();
+		}
+	}
 
-    public void deleteQuestion() throws Exception{
-        try{
-            utx.begin();
-            Question delectQues = questionService.findQuestionsByName(delectName);
-            logger.info(delectQues.toString());
-            questionService.remove(delectQues);
-            facesContext.addMessage(null, new FacesMessage("题目删除成功!"));
-            logger.log(Level.INFO, "Quesstion Add Called:{0}", currentquestion.toString());
-        }finally{
-            utx.commit();
-        }
-    }
+	public List<Question> getAllQuestionsWithTeam() throws Exception {
+		try {
+			utx.begin();
+			Team paramTeam = currentStu.getTeam();
+			return questionService.findAllQuestionsWithTeam(paramTeam);
+		} finally {
+			utx.commit();
+		}
+	}
 
+	public List<Question> getAllQuestionsWithoutTeam() throws Exception {
+		try {
+			utx.begin();
+			logger.info("getAllQuestionsWithoutTeam---------------in Manager is calledddd");
 
-    public List<Question> getAllQuestionsWithTeam() throws Exception {
-    try{	
-      utx.begin();
-      Team paramTeam = currentUser.getTeam();
-      return questionService.findAllQuestionsWithTeam(paramTeam);
-    } finally {
-      utx.commit();
-    }
-    }
+			return questionService.findAllQuestionsWithoutTeam();
 
-    public List<Question> getAllQuestionsWithoutTeam() throws Exception {
-		  try {
-			  utx.begin();
-			  logger.info("getAllQuestionsWithoutTeam---------------in Manager is calledddd");
+		} finally {
+			utx.commit();
+		}
+	}
 
-			  return questionService.findAllQuestionsWithoutTeam();
+	/**
+	 * 处理当前问题值改变逻辑.
+	 */
+	public void selectedChanged(ValueChangeEvent event) {
+		System.out.println("logPrint >> ---------------QuestionManager-selectedChanged-value-is:"
+				+ event.getNewValue().toString());
 
-		  } finally {
-			  utx.commit();
-		  }
-	  }
-
-	  /**
-	   * 处理当前问题值改变逻辑.
-	   */
-	   public void selectedChanged(ValueChangeEvent event) {
-		   System.out.println("logPrint >> ---------------QuestionManager-selectedChanged-value-is:" + event.getNewValue().toString());
-
-			String introduce = questionService.findSpecifiedQuestionByQuestion(event.getNewValue().toString()).getIntroduce();
-		   facesContext.addMessage(null, new FacesMessage("当前问题是： " + event.getNewValue().toString()));
-		   facesContext.addMessage(null, new FacesMessage("题目要求： " + introduce));
-	   }
+		String introduce = questionService.findSpecifiedQuestionByQuestion(event.getNewValue().toString())
+				.getIntroduce();
+		facesContext.addMessage(null, new FacesMessage("当前问题是： " + event.getNewValue().toString()));
+		facesContext.addMessage(null, new FacesMessage("题目要求： " + introduce));
+	}
 }

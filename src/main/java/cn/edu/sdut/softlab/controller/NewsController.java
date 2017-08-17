@@ -96,7 +96,8 @@ public class NewsController {
      * @return 
      */
     public Integer getNewsNum(){
-        if (loginController.getCurrentUser().getLevel().equals("Admin")) {
+        if (loginController.getCurrentUser().getLevel().equals("Admin") 
+        		|| loginController.getCurrentUser().getLevel().equals("Teacher")) {
             return 0;
         }
         Student loginStu = studentService.findStudentByName(loginController.getCurrentUser().getName());
@@ -109,7 +110,8 @@ public class NewsController {
      * @return 
      */
     public List<News> getNewsByStu(){
-        if (loginController.getCurrentUser().getLevel().equals("Admin")) {
+        if (loginController.getCurrentUser().getLevel().equals("Admin")
+        		|| loginController.getCurrentUser().getLevel().equals("Teacher")) {
             return null;
         }
         Student loginStu = studentService.findStudentByName(loginController.getCurrentUser().getName());

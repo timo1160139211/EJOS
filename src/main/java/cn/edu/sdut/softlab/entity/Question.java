@@ -178,9 +178,7 @@ public class Question implements Serializable {
 
     @Override
     public String toString() {
-        return "Question{" + "id=" + id + ", answer=" + answer + ", deadline=" + deadline + ", diffculty=" + diffculty
-                + ", introduce=" + introduce + ", path=" + path + ", question=" + question + ", result="
-                + result + ", time=" + time + ", team=" + team + '}';
+        return question;
     }
 
     /*

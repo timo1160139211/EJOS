@@ -48,14 +48,6 @@ public class LoginController implements Serializable {
     @Inject
     UserProducers userProducers;
 
-	@Produces
-	@LoggedIn
-	public Student getCurrentStu() {
-       HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
-      Student loginStudent = (Student) session.getAttribute("currentUser");
-		return loginStudent;
-	}
-    
     private User currentUser;
 
     public User getCurrentUser() {

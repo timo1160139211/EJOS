@@ -42,6 +42,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.List;
+
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
 
@@ -69,15 +71,22 @@ public class HandInManager implements Serializable {
 	EntityManager em;
 
 	@Inject
+	LoginController loginController;
+	
+	@Inject
 	AchievementFacade achievementService;
 
 	@Inject
 	private UserTransaction utx;
 
-	@Inject
-	@LoggedIn
-	private Student currentUser;// 当前用户
+	private Student currentUser;// = (Student) loginController.getCurrentUser();// 当前用户
 
+	@PostConstruct
+	public void init(){
+		Student s = (Student) loginController.getCurrentUser();
+		this.currentUser = s;
+	}
+	
 	@Inject
 	FacesContext facesContext;
 

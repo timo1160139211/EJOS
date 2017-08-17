@@ -63,7 +63,6 @@ public class UserProducers implements Serializable {
     @Produces
     @Preferred
     @SessionScoped
-    @LoggedIn
     public User getUser() {
         switch (this.level) {
             case "Admin":
